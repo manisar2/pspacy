@@ -2,11 +2,11 @@
 
 While I took this course, I stacked the code nicely for my future reference.  
 
-1. ### This repo has that code with appropriate chapters, sections, headings and comments.
+1. #### This repo has that code with appropriate chapters, sections, headings and comments.
 
-2. ### Edits have been made for [spaCy](https://spacy.io/) v3 compatibility (this is yet to be done in online course as of 29 Sep 2021).
+2. #### Edits have been made for [spaCy](https://spacy.io/) v3 compatibility (this is yet to be done in online course as of 29 Sep 2021).
 
-3. ### The needed data files have been placed in the same (root) directory, and the code has been changed accordingly. This is to avoid the need of using os.path in Windows :).
+3. #### The needed data files have been placed in the same (root) directory, and the code has been changed accordingly. This is to avoid the need of using os.path in Windows :).
 
 The course can be started from https://spacy.io/usage/spacy-101 or https://course.spacy.io/.en/.
 
