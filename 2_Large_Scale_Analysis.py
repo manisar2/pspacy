@@ -9,7 +9,7 @@ nlp = en_core_web_sm.load()
     #   2. looking up the string (TBC)
     #   3. using the same vocab (TBC)
 
-# 1.0
+# 1.1
 ################################################################################
 doc = nlp("I have a cat")
 cat_hash = nlp.vocab.strings["cat"]
@@ -19,7 +19,7 @@ cat_string = nlp.vocab.strings[cat_hash]
 print(cat_string)
 ################################################################################
 
-# 2.0
+# 2.1
 ################################################################################
 doc = nlp("David Bowie is a PERSON")
 person_hash = nlp.vocab.strings["WOW"]
@@ -30,7 +30,7 @@ person_string = nlp.vocab.strings[person_hash]
 print(person_string)
 ################################################################################
 
-# 3.0 Data Structures: Doc, Span and Token Subtleties
+# 3.1 Data Structures: Doc, Span and Token Subtleties
 ################################################################################
 from spacy.tokens import Doc
 words = ["spaCy", "is", "cool", "!"]
@@ -41,7 +41,7 @@ doc = Doc(nlp.vocab, words=words, spaces=spaces)
 print(doc.text)
 ################################################################################
 
-# 3.0.1
+# 3.1.1
 ################################################################################
 words = ["Go", ",", "get", "started", "!"]
 spaces = [False, True, True, False, False]
@@ -51,7 +51,7 @@ doc = Doc(nlp.vocab, words=words, spaces=spaces)
 print(doc.text)
 ################################################################################
 
-# 3.0.2
+# 3.1.2
 ################################################################################
 words = ["Oh", ",", "really", "?", "!"]
 spaces =[False, True, False, False, False]
@@ -60,7 +60,7 @@ print(doc.text)
 ################################################################################
 
 ################################################################################
-# 3.0.3 Adding a span to doc.ents
+# 3.1.3 Adding a span to doc.ents
 ################################################################################
 from spacy.tokens import Span
 words = ["I", "like", "David", "Bowie"]
@@ -75,7 +75,7 @@ print([(ent.text, ent.label_) for ent in doc.ents])
 ################################################################################
 
 ################################################################################
-# 3.0.4 Data Structures Best Practices
+# 3.1.4 Data Structures Best Practices
 ################################################################################
 doc = nlp("Berlin looks like a nice city")
 token_texts = [token.text for token in doc]
@@ -88,7 +88,7 @@ for token in doc:
 ################################################################################
 
 ################################################################################
-# 4.0 Similarity - Doc., Span., Token.
+# 4.1 Similarity - Doc., Span., Token.
 ################################################################################
 import en_core_web_md
 nlp = en_core_web_md.load()
@@ -97,7 +97,7 @@ bananas_vector = doc[1].vector
 print(bananas_vector)
 ################################################################################
 
-# 4.0.1
+# 4.1.1
 ################################################################################
 doc = nlp("TV and books")
 token1, token2 = doc[0], doc[2]
@@ -105,7 +105,7 @@ similarity = token1.similarity(token2)
 print(similarity)
 ################################################################################
 
-# 4.0.2
+# 4.1.2
 ################################################################################
 doc = nlp("This was a great restaurant. Afterwards, we went to a really nice bar.")
 # Create spans for "great restaurant" and "really nice bar"
@@ -116,7 +116,7 @@ print(similarity)
 ################################################################################
 
 ################################################################################
-# 5.0 Debugging Patterns
+# 5.1 Debugging Patterns
 from spacy.matcher import Matcher
 # pattern1 matches all case-insensitive mentions of "Amazon" plus a title-cased proper noun.
 # pattern2 matches all case-insensitive mentions of "ad-free", plus the following noun.
@@ -140,7 +140,7 @@ for match_id, start, end in matcher(doc):
 ################################################################################
 
 ################################################################################
-# 6.0 Efficient Phrase Matching
+# 6.1 Efficient Phrase Matching
     # Sometimes it’s more efficient to match exact strings instead of writing patterns 
     # describing the individual tokens
 ################################################################################
@@ -155,7 +155,7 @@ matches = matcher(doc)
 print([doc[start:end] for match_id, start, end in matches])
 ################################################################################
 
-# 6.0.1 Extract Countries and Relationships
+# 6.1.1 Extract Countries and Relationships
     # Iterate over the matches and create a Span with the label "GPE" (geopolitical entity).
     # Overwrite the entities in doc.ents and add the matched span.
     # Get the matched span’s root head token.

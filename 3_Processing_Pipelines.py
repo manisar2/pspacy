@@ -7,7 +7,7 @@ nlp = en_core_web_sm.load()
 print(nlp.pipe_names)
 print(nlp.pipeline)
 
-# 6.0 Simple Components
+# 1. Simple Components
 ################################################################################
 from spacy.language import Language
 @Language.component("length_component")
@@ -21,7 +21,7 @@ doc = nlp("This is a sentence.")
 ################################################################################
 
 ################################################################################
-# 6.1 Complex Components
+# 2. Complex Components
 # Use the PhraseMatcher to find animal names in the document and adds the matched
     #  spans to the doc.ents
 ################################################################################
@@ -47,7 +47,7 @@ print([(ent.text, ent.label_) for ent in doc.ents])
 
 
 ################################################################################
-# 6.2 Custom Extensions
+# 3.1 Custom Extensions
     # Three Types - attribute, property and method, can be set on Doc, Token, Span
     # Attribute <= default=, Property <= getter=, Method <= method=
     # Below - custome attribute on token
@@ -60,7 +60,7 @@ doc[3]._.is_country = True
 print([(token.text, token._.is_country) for token in doc])
 ################################################################################
 
-# 6.2.2 Custom Property on Token
+# 3.2 Custom Property on Token
 ################################################################################
 nlp = en_core_web_sm.load()
 def get_reversed(token): return token.text[::-1]
@@ -69,7 +69,7 @@ doc = nlp("All generalizations are false, including this one.")
 for token in doc: print("reversed:", token._.reversed)
 ################################################################################
 
-# 6.2.3 Custom Property on Doc 
+# 3.3 Custom Property on Doc 
 ################################################################################
 from spacy.tokens import Doc
 nlp = en_core_web_sm.load()
@@ -79,7 +79,7 @@ doc = nlp("The museum closed for five years in 2012.")
 print("has_number:", doc._.has_number)
 ################################################################################
 
-# 6.2.4 Custom Method on Span
+# 3.4 Custom Method on Span
 ################################################################################
 from spacy.tokens import Span
 def to_html(span, tag): return f"<{tag}>{span.text}</{tag}>"
@@ -89,7 +89,7 @@ span = doc[0:2]
 print(span._.to_html("strong"))
 ################################################################################
 
-# 6.2.5 Mix of Extensions ######################################################
+# 3.5 Mix of Extensions ######################################################
 ################################################################################
 nlp = spacy.load("en_core_web_sm")
 def get_wikipedia_url(span):
@@ -105,7 +105,7 @@ doc = nlp(
 for ent in doc.ents: print(ent.text, ent._.wikipedia_url)
 ################################################################################
 
-# 6.2.6 Custom Components with Custom Extensions ###############################
+# 3.6 Custom Components with Custom Extensions ###############################
     # Complete the countries_component and create a Span with the label "GPE" 
     #   (geopolitical entity) for all matches.
     # Add the component to the pipeline.
@@ -148,7 +148,7 @@ print([(ent.text, ent.label_, ent._.capital) for ent in doc.ents])
 ################################################################################
 
 ################################################################################
-# 6.3 Processing Streams
+# 4. Processing Streams
 ################################################################################
 nlp = en_core_web_sm.load()
 with open("tweets.json", encoding="utf8") as f: TEXTS = json.loads(f.read())
@@ -174,7 +174,7 @@ patterns = list(nlp.pipe(people))
 ################################################################################
 
 ################################################################################
-# 6.4 Processing Data with Contexts ############################################
+# 5. Processing Data with Contexts ############################################
     # Using custom attributes to add author and book meta information to quotes.
     # A list of [text, context] examples is available as the variable DATA. 
     #   The texts are quotes from famous books, and the contexts dictionaries with the keys "author" and "book".
@@ -201,7 +201,7 @@ for doc, context in nlp.pipe(DATA, as_tuples=True):
 ################################################################################
 
 ################################################################################
-# 6.4 Selective Processing #####################################################
+# 6.1 Selective Processing #####################################################
 ################################################################################
 import spacy
 nlp = spacy.load("en_core_web_sm")
@@ -210,11 +210,11 @@ text = (
     "the city of College Park, Georgia, specializing in chicken sandwiches."
 )
 # doc = nlp(text) # this runs the components immediated after making the doc
-doc = nlp.make_doc(text) # this won't run the components except tokenizer (why tokenizer? TBC)
+doc = nlp.make_doc(text) # this won't run the components except the (default) tokenizer
 print([token.text for token in doc])
 ################################################################################
 
-# 6.4.2
+# 6.2
 ################################################################################
 with nlp.disable_pipes("tagger", "parser"):
     doc = nlp(text)
